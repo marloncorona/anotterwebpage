@@ -1,0 +1,25 @@
+<!--
+  Comentario: Archivo de proyecto .NET (SDK estilo moderno). 
+  Define que es una app web (Microsoft.NET.Sdk.Web) y apunta a .NET 8 (net8.0).
+-->
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!-- Versión de .NET -->
+    <TargetFramework>net8.0</TargetFramework>
+    <!-- Habilitar nullable para mejores prácticas -->
+    <Nullable>enable</Nullable>
+    <!-- Implicita la importación de usings comunes -->
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Ejemplo de dependencias; agrega otras según tu proyecto -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

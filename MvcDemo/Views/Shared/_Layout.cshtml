@@ -1,0 +1,27 @@
+@* Comentario: Layout maestro compartido por todas las vistas *@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MvcDemo</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="topbar">
+            <a class="brand" asp-controller="Home" asp-action="Index">MvcDemo</a>
+            <a asp-controller="Home" asp-action="Privacy">Privacidad</a>
+            <a asp-controller="Products" asp-action="Index">Productos</a>
+        </nav>
+    </header>
+    <main class="container">
+        @RenderBody()
+    </main>
+    <footer>
+        <span>&copy; @DateTime.Now.Year - MvcDemo</span>
+    </footer>
+    @RenderSection("Scripts", required: false)
+    <script src="~/js/site.js"></script>
+</body>
+</html>
