@@ -1,8 +1,103 @@
-/* Comentario: CSS global del sitio */
-body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; }
-.topbar { display:flex; gap:1rem; padding:1rem; background:#111; color:#fff; }
-.topbar a { color:#fff; text-decoration:none; }
-.container { padding: 2rem; }
-.btn { background:#2563eb; color:white; border:none; padding:.5rem 1rem; border-radius:8px; }
-.table { border-collapse: collapse; width:100%; }
-.table th, .table td { border:1px solid #ddd; padding:.5rem; }
+:root {
+    /* altura del navbar (ajusta si cambias el tamaño del logo o paddings) */
+    --nav-h: 84px;
+}
+
+/* General */
+body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0;
+    background-color: whitesmoke;
+    /* Deja espacio para el navbar fijo */
+    padding-top: var(--nav-h);
+}
+
+/* Barra superior fija */
+.topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: antiquewhite;          /* color sólido */
+    /* Si quieres que se vea más moderna encima de imágenes:
+       background: rgba(250, 235, 215, 0.92);
+       backdrop-filter: saturate(120%) blur(6px);
+    */
+    padding: 0 40px;                          /* horizontal */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1000;                            /* por encima del contenido */
+}
+
+/* Contenedores laterales (sin padding vertical para respetar la altura fija) */
+.nav-left, .nav-right {
+    display: flex;
+    gap: 50px;
+}
+
+/* Centro (logo) */
+.nav-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Enlaces */
+.topbar a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.topbar a:hover {
+    color: #4a4a4a;
+    text-decoration: underline;
+}
+
+/* Logo */
+.logo {
+    width: 70px;
+    height: auto;
+}
+
+/* Botón derecho */
+.btn-contact {
+    background-color: #e3a16b;
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-contact:hover { background-color: #cf8d55; }
+
+/* Tu sección de “Conoce a Connie” queda igual */
+.meetConnie { display:flex; flex-direction:row; background-color:lavenderblush; justify-content:center; width:100%; }
+.fill { display:flex; justify-content:center; align-items:center; overflow:hidden; }
+.fill img { object-fit:cover; width:100%; height:100%; }
+.info { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; width:50%; height:500px; }
+
+.mainTitle {
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+#calendar{
+    max-width: 1000px;   
+    margin: 0 auto;      
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    padding:1rem;
+}
+
+.calendar-wrap{
+    max-width: 1000px;   
+    margin: 0 auto;      
+    padding: 0 1rem;    
+}

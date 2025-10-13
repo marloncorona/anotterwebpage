@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuración de servicios (Dependency Injection)
 builder.Services.AddControllersWithViews(); // MVC
 // DbContext de ejemplo usando SQLite (archivo local MvcDemo.db)
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();

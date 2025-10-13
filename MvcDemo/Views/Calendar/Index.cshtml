@@ -1,0 +1,138 @@
+@{
+    ViewData["Title"] = "Agenda";
+    Layout = "_Layout";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+<h2 class="mb-3 mainTitle">Agenda tu cita</h2>
+<div class="calendar-wrap">
+  <div id="calendar"></div>
+</div>
+
+
+<!-- Modal -->
+<div id="bookModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);
+     align-items:center; justify-content:center; z-index:1200;">
+  <form id="bookForm" style="background:#fff; padding:20px; border-radius:16px; min-width:340px;">
+    <h3 style="margin-top:0;">Confirmar cita</h3>
+    <p id="slotText" style="margin:.5rem 0;"></p>
+    <input type="text" name="name" placeholder="Nombre" required class="form-control" />
+    <input type="email" name="email" placeholder="Correo" required class="form-control" style="margin-top:.5rem;" />
+    <textarea name="notes" placeholder="Notas" class="form-control" style="margin-top:.5rem;"></textarea>
+    <div style="margin-top:1rem; display:flex; gap:.5rem; justify-content:flex-end;">
+      <button type="button" id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Reservar</button>
+    </div>
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const tz = 'America/Tijuana';
+  const calendarEl = document.getElementById('calendar');
+  const modal = document.getElementById('bookModal');
+  const slotText = document.getElementById('slotText');
+  const form = document.getElementById('bookForm');
+
+  let selStart = null, selEnd = null;
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    timeZone: tz,
+    locale: 'es',
+    slotDuration: '01:00:00',          // bloques de 1 hora
+    slotLabelInterval: '01:00',
+    slotLabelFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
+    slotMinTime: '07:00:00',       // ⬅️ inicia a las 07:00
+    slotMaxTime: '20:00:00',       // ⬅️ termina a las 20:00 (exclusivo)
+    scrollTime: '07:00:00',       // ⬅️ al cargar, scrollea a las 07:00
+    snapDuration: '01:00:00',
+    allDaySlot: false,
+    firstDay: 0,                        // domingo
+    expandRows: true,
+    height: 'auto',
+    selectable: true,
+    selectMirror: true,
+    selectOverlap: false,               // no permitir selección encima de ocupados
+    nowIndicator: true,
+
+    // Horario laboral
+    businessHours: [
+      { daysOfWeek: [1,2,3,4,5], startTime: '09:00', endTime: '18:00' },
+      { daysOfWeek: [6],         startTime: '09:00', endTime: '13:00' }
+    ],
+
+    // Citas ocupadas desde el backend
+    events: {
+      url: '@Url.Action("GetBusy", "Calendar")',
+      method: 'GET',
+      failure: () => alert('No se pudo cargar disponibilidad')
+    },
+
+    // Restringe días/horas pasadas
+    selectAllow: function(info) {
+      return info.start >= new Date();
+    },
+
+    // Al seleccionar un bloque de 1 hora
+    select: function(info) {
+      // forzamos 1h exacta por si el usuario arrastra más
+      const start = new Date(info.start);
+      const end = new Date(start.getTime() + 60*60*1000);
+
+      selStart = start.toISOString();
+      selEnd   = end.toISOString();
+
+      const f = new Intl.DateTimeFormat('es-MX', {
+        dateStyle: 'full', timeStyle: 'short', timeZone: tz
+      });
+      slotText.textContent = `${calendar.formatDate(start, { 
+        weekday:'long', day:'2-digit', month:'long', year:'numeric', hour:'numeric', minute:'2-digit'
+      })} – ${calendar.formatDate(end, { hour:'numeric', minute:'2-digit' })}`;
+
+      modal.style.display = 'flex';
+    }
+  });
+
+  calendar.render();
+
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      start: selStart,
+      end: selEnd,
+      name: form.name.value,
+      email: form.email.value,
+      notes: form.notes.value
+    };
+    const res = await fetch('@Url.Action("Book", "Calendar")', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      modal.style.display = 'none';
+      form.reset();
+      calendar.refetchEvents();
+      alert('¡Cita reservada!');
+    } else {
+      alert('No se pudo reservar: ' + await res.text());
+    }
+  };
+
+  document.getElementById('cancelBtn').onclick = () => {
+    modal.style.display = 'none';
+    calendar.unselect();
+  };
+});
+</script>
+
+<style>
+#calendar { background:#fff; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,.06); padding:1rem; }
+.btn { padding:.5rem 1rem; border-radius:20px; }
+.form-control { width:100%; padding:.5rem; border:1px solid #ddd; border-radius:8px; }
+.fc .fc-timegrid-slot { height: 3rem; }
+</style>

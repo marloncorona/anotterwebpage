@@ -18,8 +18,8 @@ public class HomeController : Controller
         return View();
     }
 
-    // GET /Home/Privacy
-    public IActionResult Privacy()
+    // GET /Home/Agendar
+    public IActionResult Agendar()
     {
         return View();
     }
