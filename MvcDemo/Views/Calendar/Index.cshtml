@@ -15,12 +15,18 @@
 <!-- Modal -->
 <div id="bookModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);
      align-items:center; justify-content:center; z-index:1200;">
-  <form id="bookForm" style="background:#fff; padding:20px; border-radius:16px; min-width:340px;">
+  <form id="bookForm" style="background:#fff; padding:20px; border-radius:16px; width:40%;display:flex; flex-direction: column; ">
     <h3 style="margin-top:0;">Confirmar cita</h3>
     <p id="slotText" style="margin:.5rem 0;"></p>
-    <input type="text" name="name" placeholder="Nombre" required class="form-control" />
-    <input type="email" name="email" placeholder="Correo" required class="form-control" style="margin-top:.5rem;" />
-    <textarea name="notes" placeholder="Notas" class="form-control" style="margin-top:.5rem;"></textarea>
+    <input type="nombre" name="nombre" placeholder="Nombre" required class="form-control" />
+    <input type="apellido" name="apellido" placeholder="Apellido" required class="form-control" style="margin-top:.5rem;" />
+    <input type="nombrePaciente" name="nombrePaciente" placeholder="Nombre del paciente" optional class="form-control" style="margin-top:.5rem;" />
+    <small style="display:block; margin-top:.25rem; color:#6c757d;font-size: x-small;">*Opcional</small>
+    <input type="email" name="email" placeholder="Email" required class="form-control" style="margin-top:.5rem;" />
+    <input type="numero" name="numero" placeholder="Whatsapp" required class="form-control" style="margin-top:.5rem;" />
+
+
+    <textarea name="motivo" placeholder="Motivo de consulta" class="form-control" style="margin-top:.5rem;"></textarea>
     <div style="margin-top:1rem; display:flex; gap:.5rem; justify-content:flex-end;">
       <button type="button" id="cancelBtn" class="btn btn-secondary">Cancelar</button>
       <button type="submit" class="btn btn-primary">Reservar</button>
@@ -42,20 +48,20 @@ document.addEventListener('DOMContentLoaded', function () {
     initialView: 'timeGridWeek',
     timeZone: tz,
     locale: 'es',
-    slotDuration: '01:00:00',          // bloques de 1 hora
+    slotDuration: '01:00:00',// bloques de 1 hora
     slotLabelInterval: '01:00',
     slotLabelFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
-    slotMinTime: '07:00:00',       // ⬅️ inicia a las 07:00
-    slotMaxTime: '20:00:00',       // ⬅️ termina a las 20:00 (exclusivo)
-    scrollTime: '07:00:00',       // ⬅️ al cargar, scrollea a las 07:00
+    slotMinTime: '07:00:00',     
+    slotMaxTime: '20:00:00',       
+    scrollTime: '07:00:00',      
     snapDuration: '01:00:00',
     allDaySlot: false,
-    firstDay: 0,                        // domingo
+    firstDay: 0, // domingo
     expandRows: true,
     height: 'auto',
     selectable: true,
     selectMirror: true,
-    selectOverlap: false,               // no permitir selección encima de ocupados
+    selectOverlap: false,             
     nowIndicator: true,
 
     // Horario laboral
@@ -71,14 +77,14 @@ document.addEventListener('DOMContentLoaded', function () {
       failure: () => alert('No se pudo cargar disponibilidad')
     },
 
-    // Restringe días/horas pasadas
+    // Restringe dias/horas pasadas
     selectAllow: function(info) {
       return info.start >= new Date();
     },
 
     // Al seleccionar un bloque de 1 hora
     select: function(info) {
-      // forzamos 1h exacta por si el usuario arrastra más
+      // forzamos 1h exacta por si el usuario arrastra mas
       const start = new Date(info.start);
       const end = new Date(start.getTime() + 60*60*1000);
 
@@ -103,9 +109,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const payload = {
       start: selStart,
       end: selEnd,
-      name: form.name.value,
+      nombre: form.nombre.value,
+      apellido: form.apellido.value,
+      nombrePaciente: form.nombrePaciente.value,
       email: form.email.value,
-      notes: form.notes.value
+      numero: form.numero.value,
+      
+      motivo: form.motivo.value,
     };
     const res = await fetch('@Url.Action("Book", "Calendar")', {
       method: 'POST',
@@ -133,6 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
 <style>
 #calendar { background:#fff; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,.06); padding:1rem; }
 .btn { padding:.5rem 1rem; border-radius:20px; }
-.form-control { width:100%; padding:.5rem; border:1px solid #ddd; border-radius:8px; }
+.form-control { padding:.5rem; border:1px solid #ddd; border-radius:8px; }
 .fc .fc-timegrid-slot { height: 3rem; }
 </style>

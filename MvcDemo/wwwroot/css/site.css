@@ -1,5 +1,4 @@
 :root {
-    /* altura del navbar (ajusta si cambias el tamaño del logo o paddings) */
     --nav-h: 84px;
 }
 
@@ -12,7 +11,6 @@ body {
     padding-top: var(--nav-h);
 }
 
-/* Barra superior fija */
 .topbar {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -22,17 +20,14 @@ body {
     justify-content: space-between;
     align-items: center;
 
-    background-color: antiquewhite;          /* color sólido */
-    /* Si quieres que se vea más moderna encima de imágenes:
+    background-color: antiquewhite;        
        background: rgba(250, 235, 215, 0.92);
        backdrop-filter: saturate(120%) blur(6px);
-    */
-    padding: 0 40px;                          /* horizontal */
+    padding: 0 40px;                     
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    z-index: 1000;                            /* por encima del contenido */
+    z-index: 1000;                           
 }
 
-/* Contenedores laterales (sin padding vertical para respetar la altura fija) */
 .nav-left, .nav-right {
     display: flex;
     gap: 50px;
@@ -45,26 +40,28 @@ body {
     align-items: center;
 }
 
-/* Enlaces */
-.topbar a {
+.navlink {
     color: #333;
     text-decoration: none;
     font-weight: 500;
     letter-spacing: 0.5px;
+    padding: 10px;
 }
 
-.topbar a:hover {
-    color: #4a4a4a;
-    text-decoration: underline;
+.navlink:hover {
+    text-decoration: none;
+    background-color: pink;
+    color: black;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-/* Logo */
 .logo {
     width: 70px;
     height: auto;
 }
 
-/* Botón derecho */
 .btn-contact {
     background-color: #e3a16b;
     color: white !important;
@@ -72,10 +69,10 @@ body {
     border-radius: 20px;
     font-weight: 600;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 .btn-contact:hover { background-color: #cf8d55; }
 
-/* Tu sección de “Conoce a Connie” queda igual */
 .meetConnie { display:flex; flex-direction:row; background-color:lavenderblush; justify-content:center; width:100%; }
 .fill { display:flex; justify-content:center; align-items:center; overflow:hidden; }
 .fill img { object-fit:cover; width:100%; height:100%; }
@@ -100,4 +97,46 @@ body {
     max-width: 1000px;   
     margin: 0 auto;      
     padding: 0 1rem;    
+}
+
+.services {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.service img {
+    width: 70%;
+}
+
+.materiales {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.material {
+    display: flex;
+    flex-direction: row;
+}
+
+.aboutme {
+    display: flex;
+    flex-direction: row;
+}
+
+.ottie {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: mistyrose;
 }

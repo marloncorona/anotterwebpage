@@ -1,35 +1,64 @@
-/*
- * Comentario: Punto de entrada con el "Minimal hosting model" de .NET 8.
- * Configura servicios (AddControllersWithViews) y el pipeline HTTP.
- */
-using Microsoft.EntityFrameworkCore;
-using MvcDemo.Data;
+// Program.cs
+using Microsoft.Data.Sqlite;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración de servicios (Dependency Injection)
-builder.Services.AddControllersWithViews(); // MVC
-// DbContext de ejemplo usando SQLite (archivo local MvcDemo.db)
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+// MVC
+builder.Services.AddControllersWithViews();
+
+// (Opcional) Lee la cadena desde appsettings.json
+// "ConnectionStrings": { "DefaultConnection": "Data Source=AppData/calendar.db" }
+var cs = builder.Configuration.GetConnectionString("DefaultConnection")
+         ?? "Data Source=AppData/calendar.db";
+
+// Asegura la carpeta del .db
+var dataSource = new SqliteConnectionStringBuilder(cs).DataSource;
+var absPath = Path.GetFullPath(dataSource);
+var dir = Path.GetDirectoryName(absPath);
+if (!string.IsNullOrEmpty(dir)) Directory.CreateDirectory(dir);
+
+// Bootstrap de esquema
+using (var con = new SqliteConnection(cs))
+{
+    con.Open();
+    using var cmd = con.CreateCommand();
+    cmd.CommandText = @"
+        PRAGMA journal_mode = WAL;
+
+        CREATE TABLE IF NOT EXISTS Appointments(
+            Id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            Start           TEXT NOT NULL,   -- ISO-8601
+            End             TEXT NOT NULL,   -- ISO-8601
+            Nombre          TEXT NOT NULL,
+            Apellido        TEXT NOT NULL,
+            NombrePaciente  TEXT,
+            Email           TEXT NOT NULL,
+            Numero          TEXT NOT NULL,
+            Motivo          TEXT,
+            isReserved      INTEGER NOT NULL DEFAULT 1,
+            CreatedAt       TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+        );
+
+        CREATE INDEX IF NOT EXISTS IX_Appointments_Start ON Appointments(Start);
+    ";
+    cmd.ExecuteNonQuery();
+}
+
+builder.Services.AddSingleton(new SqliteConnectionStringBuilder(cs).ToString());
 
 var app = builder.Build();
 
-// Configurar el pipeline HTTP (middleware)
 if (!app.Environment.IsDevelopment())
 {
-    // Manejo de errores genérico en producción
     app.UseExceptionHandler("/Home/Error");
-    app.UseHsts(); // Seguridad: Strict-Transport-Security
+    app.UseHsts();
 }
 
-app.UseHttpsRedirection();    // Redirección a HTTPS
-app.UseStaticFiles();         // Servir archivos estáticos desde wwwroot
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthorization();
 
-app.UseRouting();             // Habilita el enrutamiento
-app.UseAuthorization();       // (Si usas autenticación/roles, agregar UseAuthentication)
-
-// Definir ruta por defecto para MVC: controlador=Home, acción=Index, id opcional
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
