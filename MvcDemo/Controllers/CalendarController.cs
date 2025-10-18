@@ -10,7 +10,7 @@ namespace MvcDemo.Controllers
         private readonly string _connString;
         public CalendarController(string connString)
         {
-            _connString = connString; // viene del Program.cs (Singleton)
+            _connString = connString; 
         }
 
         public IActionResult Index() => View();
@@ -42,7 +42,6 @@ namespace MvcDemo.Controllers
                 var s = rd.GetString(0);
                 var e = rd.GetString(1);
 
-                // Devuelve ISO-8601 (FullCalendar-friendly)
                 list.Add(new {
                     title = "Reservado",
                     start = DateTime.Parse(s).ToString("o"),
@@ -68,7 +67,7 @@ namespace MvcDemo.Controllers
                 return BadRequest("Faltan datos.");
             }
 
-            // Normaliza a horas exactas (minutos=0) si así lo quieres
+            // Normaliza a horas exactas
             var norm = new BookRequest {
                 Start = new DateTime(req.Start.Year, req.Start.Month, req.Start.Day, req.Start.Hour, 0, 0, DateTimeKind.Local),
                 End   = new DateTime(req.End.Year,   req.End.Month,   req.End.Day,   req.End.Hour,   0, 0, DateTimeKind.Local),
@@ -84,7 +83,7 @@ namespace MvcDemo.Controllers
             await using var con = new SqliteConnection(_connString);
             await con.OpenAsync();
 
-            // Verifica solapamientos
+            // Verifica que no se sobrepongan citas
             const string qOverlap = @"
                 SELECT EXISTS(
                     SELECT 1

@@ -6,7 +6,7 @@
 body {
     font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     margin: 0;
-    background-color: whitesmoke;
+    background-color: white;
     /* Deja espacio para el navbar fijo */
     padding-top: var(--nav-h);
 }
@@ -107,25 +107,44 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+    background-color: lavenderblush;
 }
 
 .service img {
     width: 70%;
 }
 
+.s1 img {
+    border: 30px solid pink;
+}
+
+.s2 img {
+    border: 30px solid #cddff7;
+}
+
+.s3 img {
+    border: 30px solid #e4dced;
+}
+
 .materiales {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     text-align: center;
+    background-color: aliceblue;
 }
 
 .material {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
+.material img {
+    width: 70%;
+}
 .aboutme {
     display: flex;
     flex-direction: row;
@@ -135,8 +154,30 @@ body {
     width: 100%;
     height: 400px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: mistyrose;
+}
+
+h3 {
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-size: 2rem;
+    font-style: normal;
+    margin: 0;
+    padding: 32px;
+}
+
+.ottiesrow { 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%
+}
+
+.ottiesrow img {
+    width: 10%;
 }

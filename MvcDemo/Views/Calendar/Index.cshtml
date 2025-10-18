@@ -9,6 +9,7 @@
 <h2 class="mb-3 mainTitle">Agenda tu cita</h2>
 <div class="calendar-wrap">
   <div id="calendar"></div>
+  <img src="images/ottieagenda.PNG"/>
 </div>
 
 
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     scrollTime: '07:00:00',      
     snapDuration: '01:00:00',
     allDaySlot: false,
-    firstDay: 0, // domingo
+    firstDay: 0, // desde domingo
     expandRows: true,
     height: 'auto',
     selectable: true,
@@ -82,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
       return info.start >= new Date();
     },
 
-    // Al seleccionar un bloque de 1 hora
     select: function(info) {
       // forzamos 1h exacta por si el usuario arrastra mas
       const start = new Date(info.start);
@@ -142,6 +142,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <style>
 #calendar { background:#fff; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,.06); padding:1rem; }
+.calendar-wrap { display:flex; flex-direction:row; }
+.calendar-wrap img { display:flex; width:20rem; height:20rem; }
 .btn { padding:.5rem 1rem; border-radius:20px; }
 .form-control { padding:.5rem; border:1px solid #ddd; border-radius:8px; }
 .fc .fc-timegrid-slot { height: 3rem; }
