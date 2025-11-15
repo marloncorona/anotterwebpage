@@ -13,6 +13,7 @@
 </div>
 
 
+
 <!-- Modal -->
 <div id="bookModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);
      align-items:center; justify-content:center; z-index:1200;">
@@ -104,6 +105,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 
+  setTimeout(() => {
+    calendar.updateSize();
+  }, 150);
+
+  window.addEventListener('resize', () => {
+    calendar.updateSize();
+  });
+  
   form.onsubmit = async (e) => {
     e.preventDefault();
     const payload = {

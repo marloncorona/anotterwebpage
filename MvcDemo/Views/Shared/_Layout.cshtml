@@ -14,18 +14,18 @@
 <header>
     <nav class="topbar">
         <div class="nav-left">
-            <a class="navlink" asp-controller="Home" asp-action="Index">Inicio</a>
-            <a class="navlink" asp-controller="Home" asp-action="Privacy">Servicios</a>
+            <a class="navlink" href="/Home/Index#servicesDiv">Servicios</a>
+            <a class="navlink" href="/Home/Index#paquetesDiv">Paquetes</a>
         </div>
 
         <div class="nav-center">
-            <a asp-controller="Home" asp-action="Index">
+            <a href="/Home/Index#sobreOttie">
                 <img class="logo" src="~/images/ottie.png" alt="Logo">
             </a>
         </div>
 
         <div class="nav-right">
-            <a class="navlink" asp-controller="Colaborar" asp-action="Index">Colaborar</a>
+            <a class="navlink" asp-controller="Colaborate" asp-action="Index">Colaborar</a>
             <a class="btn-contact" asp-controller="Calendar" asp-action="Index">Agendar</a>
         </div>
     </nav>

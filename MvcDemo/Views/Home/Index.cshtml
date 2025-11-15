@@ -4,63 +4,118 @@
 
 <div class="meetConnie">
     <div class="info fill">
-        <img src="images/mainPic.jpg"/>
+        <img src="~/images/mainPic.jpg"/>
     </div>
     <div class="info" style="background-image:url('@Url.Content("~/images/meetConnieBg.png")'); background-size: cover; object-fit: cover">
         <h3>Conoce a Connie:</h3>
-        <p>Lic. Nutrición Clinica</p>
-        <p>Mtra. Salud Pública</p>
-        <p>Dra. Investigación Interdisciplinaria y Salud</p>
+        <p>¡Hola! Soy 
+            nutrióloga, y junto a Ottie, te damos la bienvenida a este espacio creado para acompañarte en tu proceso de una manera amable, divertida y educativa. Será un gusto acompañarte en el camino que estás por emprender.</p>
         <a class="btn-contact " href="#sobremi">Sobre mi</a>
     </div>
 </div>
 
 
-<div>    
-    <h3 style="text-align: center;background-color: lavenderblush;">Servicios</h3>
+<div id="servicesDiv">    
+    <h3 style="text-align: center;background-color: #f6c9be;">Servicios</h3>
 </div>
 <div class="services">
     <div class="service s1">
-        <img src="images/consul1.jpeg"/>
-        <p>Consulta pediátrica</p>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-border front">
+                    <img src="~/images/ottieListon.PNG"/>
+                </div>
+                <div class="flip-border back">
+                    <ul style="text-align: left; font-size: medium;">
+                        <li> SOP</li>
+                        <li>Endometriosis</li>
+                        <li>Resistencia a la insulina</li>
+                        <li>Menopausia</li>
+                        <li>Fertilidad</li>
+                    </ul> 
+                </div>
+            </div>
+        </div>
+        <p>Control hormonal</p>
     </div>
+
     <div class="service s2">
-        <img src="images/consul2.jpeg"/>
-        <p>Nutrición en TEA y TDAH</p>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-border front">
+                    <img src="~/images/ottie4.PNG"/>
+                </div>
+                <div class="flip-border back">
+                    <ul style="text-align: left; font-size: medium;width: 80%;">
+                        <li>Hipertensión</li>
+                        <li>Hipotiroidismo</li>
+                        <li>Diabetes</li>
+                        <li>Colitis</li>
+                        <li>Síndrome de intestino irritable</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p>Nutrición clínica</p>
     </div>
+
     <div class="service s3">
-        <img src="images/consul3.jpeg"/>
-        <p>Perfil sensorial</p>
+        <div class="flip-card">
+            <div class="flip-inner">
+                <div class="flip-border front">
+                    <img src="~/images/ottieBebe.PNG"/>
+                </div>
+                <div class="flip-border back">
+                    <ul style="text-align: left; font-size: medium;">
+                        <li>Control del niño sano</li>
+                        <li>Diabetes tipo 1</li>
+                        <li>Alimentación complementaria</li>
+                        <li>Autismo y TDAH</li>
+                        <li>Perfil sensorial</li>
+                    </ul>
+                    </div>
+            </div>
+        </div>
+        <p>Nutrición pediátrica</p>
     </div>
+
 </div>
 
 
-<div>    
-    <h3 style="text-align: center;background-color: aliceblue;">Material</h3>
+<div id="paquetesDiv">    
+    <h3 style="text-align: center;background-color: aliceblue;">Paquetes</h3>
 </div>
-<div class="materiales">
-    <div class="material">
-        <div class="materialImg">
-            <img src="images/consul4.jpeg"/>
-            <p>Plan nutricional</p>
+<div class="paquetes">
+    <div>
+        <img src="~/images/ottieDoctor.PNG">
+    </div> 
+    <div class="planes-container">
+
+        <div class="book pastel-rosa">
+            <span class="titulo">MENSUAL</span>
+            <span class="detalle">4 consultas al mes</span>
         </div>
-        <div class="materialImg">
-            <img src="images/consul5.jpeg"/>
-            <p>Manuales y equivalencias</p>
+
+        <div class="book pastel-azul">
+            <span class="titulo">QUINCENAL</span>
+            <span class="detalle">2 consultas al mes</span>
         </div>
-    </div>
-    <div class="material">
-        <img style="width: 100%" src="images/nutriottie.PNG"/>
-    </div>
-    <div class="material">
-        <div class="materialImg">
-            <img src="images/consul6.jpeg"/>
-            <p>Toma de medidas</p>
+
+        <div class="book pastel-lila">
+            <span class="titulo">FAMILIAR</span>
+            <span class="detalle">Mensual 2 adultos y niños</span>
         </div>
-        <div class="materialImg">
-            <img src="images/coloringbook.jpeg"/>
-            <p>Libro de colorear</p>
+
+        <div class="book pastel-durazno">
+            <span class="titulo">SOP</span>
+            <span class="detalle">3 consultas al mes + Taller</span>
         </div>
+
+        <div class="book pastel-menta">
+            <span class="titulo">INFANTIL</span>
+            <span class="detalle">4 consultas al mes</span>
+        </div>
+
     </div>
 </div>
 
@@ -76,31 +131,49 @@
         <p>Texto</p>
     </div>
     <div class="info fill">
-        <img src="images/aboutconnie.jpeg"/>
+        <img src="~/images/aboutconnie.jpeg"/>
     </div>
 </div>
 
 
-<div>    
-    <h3 style="text-align: center;background-color: #f6c9be">Sobre mi marca: Ottie</h3>
+<div id="sobreOttie">    
+    <h3 style="text-align: center;background-color: #f6c9be">Sobre mi marca: Ottie®</h3>
 </div>
 <div class="ottie">
-    <div>
-        <p>Origen de Ottie</p>
-        <p>Texto</p>
-        <p>Texto</p>
-        <p>Texto</p>
+    <div class="ottie-text">
+        <p>
+            Te presento a Ottie. Esta nutria nació como un sueño que me acompañó desde mis días como estudiante, 
+            cuando imaginaba un logotipo para mi consultorio. Sin embargo, con los años, mientras buscaba ideas 
+            para la página y para mis materiales, me di cuenta de que Ottie no solo era un dibujo: era una aliada. 
+            Su imagen tierna y cercana hace que la información fluya de manera más amable y amena.
+            <br><br>
+            Hoy, Ottie es una marca registrada, y eso me ha permitido darle vida de formas que nunca imaginé. 
+            Ha crecido conmigo, se ha convertido en parte de mi identidad profesional y ahora forma parte de cada 
+            material, cada consulta y cada proyecto que quiero compartir con cariño.
+        </p>
     </div>
-    <div class="ottiesrow">
-        <img src="images/ottie1.PNG"/>
-        <img src="images/ottie2.PNG"/>
-        <img src="images/ottie3.PNG"/>
-        <img src="images/ottie4.PNG"/>
-        <img src="images/ottie5.PNG"/>
-        <img src="images/ottie6.PNG"/>
-        <img src="images/ottie7.PNG"/>
-        <img src="images/ottie8.jpg"/>
-        <img src="images/ottie9.PNG"/>
+    <div class="ottie-pdf">
+        <p style="text-align: center;">¡Consigue el libro de colorear oficial!</p>
 
+        <a href="~/pdf/coloringbook.pdf" target="_blank">
+            <div class="iframe-wrapper">
+                <iframe src="~/pdf/coloringbook.pdf#toolbar=0" class="pdf-frame"></iframe>
+            </div>
+        </a>
     </div>
+
+
+</div>
+
+<div class="ottiesrow">
+    <img src="~/images/ottie1.PNG"/>
+    <img src="~/images/ottie2.PNG"/>
+    <img src="~/images/ottie3.PNG"/>
+    <img src="~/images/ottie4.PNG"/>
+    <img src="~/images/ottie5.PNG"/>
+    <img src="~/images/ottie6.PNG"/>
+    <img src="~/images/ottie7.PNG"/>
+    <img src="~/images/ottie8.jpg"/>
+    <img src="~/images/ottie9.PNG"/>
+
 </div>

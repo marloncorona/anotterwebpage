@@ -1,10 +1,17 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+}
+
 :root {
     --nav-h: 84px;
 }
 
 /* General */
 body {
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-family: "Georgia", serif;
+    letter-spacing: 2px;
+    font-size: 1rem;
     margin: 0;
     background-color: white;
     /* Deja espacio para el navbar fijo */
@@ -43,7 +50,7 @@ body {
 .navlink {
     color: #333;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.5px;
     padding: 10px;
 }
@@ -53,7 +60,6 @@ body {
     background-color: pink;
     color: black;
     border-radius: 20px;
-    font-weight: 600;
     transition: all 0.3s ease;
 }
 
@@ -77,87 +83,244 @@ body {
 .fill { display:flex; justify-content:center; align-items:center; overflow:hidden; }
 .fill img { object-fit:cover; width:100%; height:100%; }
 .info { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; width:50%; height:500px; }
-
+.info p { width: 70%; font-size: 1rem; padding-bottom: 1rem;}
 .mainTitle {
     justify-content: center;
     text-align: center;
     align-content: center;
 }
 
-#calendar{
-    max-width: 1000px;   
-    margin: 0 auto;      
+.calendar-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 3rem; /* espacio para la imagen */
+}
+
+/* Ajusta el tamaño del calendario */
+#calendar {
+    width: 70%;             
+    max-width: 900px;         
+    min-width: 650px;         /* <--- tamaño mínimo para que no se deforme */
     background:#fff;
     border-radius:16px;
     box-shadow:0 8px 20px rgba(0,0,0,.06);
     padding:1rem;
+    margin: 0 auto;
 }
 
-.calendar-wrap{
-    max-width: 1000px;   
-    margin: 0 auto;      
-    padding: 0 1rem;    
+/* Ottie flotante */
+.calendar-wrap img {
+    position: fixed;
+    bottom: 2rem;        
+    left: 3.5rem;       
+    width: 16rem;        
+    height: auto;
+    z-index: 9999;       /* encima de todo */
+    pointer-events: none;
 }
 
+
+
+
+/* -------- CONTENEDOR GENERAL -------- */
 .services {
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    width: 100%;
+    gap: 100px;
     justify-content: center;
-    align-items: center;
-    text-align: center;
     background-color: lavenderblush;
+    padding: 2rem 0;
 }
 
-.service img {
-    width: 70%;
+.service {
+    width: 330px; /* ← TAMAÑO FIJO PARA QUE TODO QUEDE IGUAL */
+    text-align: center;
 }
 
-.s1 img {
-    border: 30px solid pink;
+/* -------- TARJETA FLIP -------- */
+.flip-card {
+    width: 100%;
+    height: 380px; /* ← ALTO IGUAL PARA TODAS */
+    perspective: 1000px;
 }
 
-.s2 img {
-    border: 30px solid #cddff7;
+.flip-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.7s ease;
+    transform-style: preserve-3d;
 }
 
-.s3 img {
-    border: 30px solid #e4dced;
+.flip-card:hover .flip-inner {
+    transform: rotateY(180deg);
 }
 
-.materiales {
+/* -------- CARAS -------- */
+.flip-border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    border-radius: 0;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    background-color: aliceblue;
 }
 
-.material {
+/* FRONT */
+.flip-border.front img {
+    background-color: white;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}
+
+/* BACK */
+.flip-border.back {
+    background-color: white;
+    transform: rotateY(180deg);
+    font-size: 1.2rem;
+}
+
+/* -------- BORDES DE COLORES (aplicados al wrapper flip-border) -------- */
+.s1 .flip-border {
+    outline: 30px solid pink;
+    outline-offset: -30px;
+}
+
+.s2 .flip-border {
+    outline: 30px solid #cddff7;
+    outline-offset: -30px;
+}
+
+.s3 .flip-border {
+    outline: 30px solid #e4dced;
+    outline-offset: -30px;
+}
+
+/* Contenedor general */
+.planes-container {
+    width: 90%;
+    max-width: 700px;
+    margin: 2rem auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 1.2rem;
 }
 
-.material img {
-    width: 70%;
+/* Lomo del libro */
+.book {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1.2rem 1.5rem;
+    border-radius: 8px;
+
+    font-family: "Georgia", serif;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-left: 10px solid rgba(0,0,0,0.15); /* simula el borde del lomo */
 }
+
+/* Izquierda */
+.book .titulo {
+    font-weight: bold;
+}
+
+/* Derecha */
+.book .detalle {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Colores pastel */
+.pastel-rosa {
+    background-color: #fde1eb;
+}
+
+.pastel-azul {
+    background-color: #dfeaff;
+}
+
+.pastel-lila {
+    background-color: #efe9f8;
+}
+
+.pastel-durazno {
+    background-color: #ffe8d7;
+}
+
+.pastel-menta {
+    background-color: #e8fff5;
+}
+
+.paquetes {
+    display: flex;
+    justify-content: center;     /* Centra horizontalmente */
+    align-items: center;         /* Centra verticalmente */
+    padding: 2rem 0;
+}
+
+/* Ajuste de tamaño de la imagen */
+.paquetes img {
+    width: 380px;
+    max-width: 100%;
+}
+
+
 .aboutme {
     display: flex;
     flex-direction: row;
 }
 
 .ottie {
-    width: 100%;
-    height: 400px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    padding: 1.5rem 2rem;
+    margin: 1rem;
+    gap: 3rem;
+}
+
+/* Mitad y mitad */
+.ottie-text,
+.ottie-pdf {
+    width: 50%;
+}
+
+.ottie-text p {
+    font-size: 1.1rem;
+    line-height: 1.65rem;   
+    text-align: justify;
+    margin-top: 0;
+}
+
+/* El wrapper es el que se anima */
+.iframe-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* Animación al pasar el cursor */
+.iframe-wrapper:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+/* El iframe queda funcional */
+.pdf-frame {
+    width: 100%;
+    height: 260px;
+    border: none;
+    display: block;
 }
 
 h3 {
