@@ -1,0 +1,45 @@
+@page
+@model MvcDemo.Areas.Identity.Pages.Account.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="login-page">
+    <img class="login-bg" src="~/images/accountBg.png" alt="Fondo" />
+
+    <div class="login-card">
+        <h2 class="login-title">Registrar cuenta</h2>
+        <p class="login-subtitle">¡Bienvenido!</p>
+
+        <form method="post">
+            @Html.AntiForgeryToken()
+
+            <!-- EMAIL -->
+            <div class="input-group">
+                <input asp-for="Input.Email" class="form-control login-input" placeholder="Email" />
+            </div>
+            <span asp-validation-for="Input.Email" class="text-danger small"></span>
+
+            <!-- PASSWORD -->
+            <div class="input-group">
+                <input asp-for="Input.Password" type="password" class="form-control login-input" placeholder="Contraseña" />
+            </div>
+            <span asp-validation-for="Input.Password" class="text-danger small"></span>
+
+            <button type="submit" class="btn-login">Crear</button>
+
+            <p class="login-footer">
+                ¿Ya tienes cuenta?
+                <a asp-area="Identity" asp-page="/Account/Login">Inicia sesión aquí</a>
+            </p>
+        </form>
+        <span asp-validation-summary="All" class="text-danger"></span>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

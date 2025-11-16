@@ -27,6 +27,8 @@
         <div class="nav-right">
             <a class="navlink" asp-controller="Colaborate" asp-action="Index">Colaborar</a>
             <a class="btn-contact" asp-controller="Calendar" asp-action="Index">Agendar</a>
+            
+            <partial name="_LoginPartial" />
         </div>
     </nav>
 </header>
@@ -35,7 +37,7 @@
         @RenderBody()
     </main>
     <footer>
-        <span>&copy; @DateTime.Now.Year - MvcDemo</span>
+        <span>&copy; @DateTime.Now.Year - ottie</span>
     </footer>
     @RenderSection("Scripts", required: false)
     <script src="~/js/site.js"></script>
