@@ -1,4 +1,7 @@
+@using Microsoft.AspNetCore.Identity
 @* Comentario: Layout maestro compartido por todas las vistas *@
+@inject SignInManager<IdentityUser> SignInManager
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,8 +17,8 @@
 <header>
     <nav class="topbar">
         <div class="nav-left">
-            <a class="navlink" href="/Home/Index#servicesDiv">Servicios</a>
-            <a class="navlink" href="/Home/Index#paquetesDiv">Paquetes</a>
+            <a class="btn-contact" asp-controller="Calendar" asp-action="Index">Agendar</a>
+            <a class="navlink" asp-controller="Colaborate" asp-action="Index">Colaborar</a>
         </div>
 
         <div class="nav-center">
@@ -24,11 +27,14 @@
             </a>
         </div>
 
+        
         <div class="nav-right">
-            <a class="navlink" asp-controller="Colaborate" asp-action="Index">Colaborar</a>
-            <a class="btn-contact" asp-controller="Calendar" asp-action="Index">Agendar</a>
-            
-            <partial name="_LoginPartial" />
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            <a class="navlink" href="/Home/Index#servicesDiv">Servicios</a>
+            <a class="navlink" href="/Home/Index#paquetesDiv">Paquetes</a>
+        }
+        <partial name="_LoginPartial"/>
         </div>
     </nav>
 </header>
