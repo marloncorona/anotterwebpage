@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MvcDemo.Data;
+using MvcDemo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +14,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Identity (UI + EF)
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = false;
-    })
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+builder.Services.AddScoped<EmailService>();
 
 builder.Services.AddRazorPages();
 

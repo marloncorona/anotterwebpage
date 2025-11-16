@@ -6,7 +6,7 @@
     Layout = "_Layout";
 }
 
-@if (!SignInManager.IsSignedIn(User))
+@* @if (!SignInManager.IsSignedIn(User))
 {
   <div style="margin-top:3rem; display:flex; flex-direction:column; align-items:center; text-align:center;">
     <h2 style="font-weight:600; margin-bottom:1rem;">Inicia sesión para agendar</h2>
@@ -24,10 +24,12 @@
   </div>
 
   return;
-}
+} *@
 
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+<img class="login-bg" src="~/images/accountBg.png" alt="Fondo" />
 
 <h2 class="mb-3 mainTitle">Agenda tu cita</h2>
 <div class="calendar-wrap">

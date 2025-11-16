@@ -12,6 +12,7 @@ namespace MvcDemo.Data
         }
 
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Colab> Colabs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,6 +30,17 @@ namespace MvcDemo.Data
                 entity.Property(a => a.Numero).IsRequired();
                 entity.Property(a => a.Motivo).IsRequired();
                 entity.Property(a => a.isReserved).HasDefaultValue(true);
+            });
+
+            builder.Entity<Colab>(entity =>
+            {
+                entity.HasKey(a => a.Id);
+
+                entity.Property(a => a.Nombre).IsRequired();
+                entity.Property(a => a.Apellido).IsRequired();
+                entity.Property(a => a.Email).IsRequired();
+                entity.Property(a => a.Numero).IsRequired();
+                entity.Property(a => a.Motivo).IsRequired();
             });
         }
     }

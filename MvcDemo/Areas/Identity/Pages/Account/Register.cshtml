@@ -14,6 +14,8 @@
 
         <form method="post">
             @Html.AntiForgeryToken()
+            
+            <div asp-validation-summary="All" class="text-danger mb-2"></div>
 
             <!-- EMAIL -->
             <div class="input-group">
@@ -34,7 +36,6 @@
                 <a asp-area="Identity" asp-page="/Account/Login">Inicia sesión aquí</a>
             </p>
         </form>
-        <span asp-validation-summary="All" class="text-danger"></span>
 
     </div>
 

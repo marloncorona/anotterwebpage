@@ -274,10 +274,7 @@ body {
 }
 
 
-.aboutme {
-    display: flex;
-    flex-direction: row;
-}
+
 
 .ottie {
     display: flex;
@@ -456,5 +453,169 @@ h3 {
     from { opacity: 0; transform: scale(0.97); }
     to { opacity: 1; transform: scale(1); }
 }
+
+/* CONTENEDOR GENERAL CENTRADO */
+.collab-container {
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+/* CARD DEL FORMULARIO */
+.collab-form {
+    background: #ffffff;
+    width: 100%;
+    max-width: 460px;
+    padding: 2rem 2.5rem;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+/* TÍTULO INTERNO */
+.collab-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: "Libre Baskerville", serif;
+    margin-bottom: 1.5rem;
+}
+
+/* INPUTS Y TEXTAREA */
+.collab-input,
+.collab-textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: .7rem;
+    margin-bottom: .9rem;
+    font-size: 0.95rem;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.collab-input:focus,
+.collab-textarea:focus {
+    outline: none;
+    border-color: #e8b394;
+    box-shadow: 0 0 8px rgba(232, 179, 148, 0.4);
+    background: #fffdf9;
+}
+
+/* TEXTAREA */
+.collab-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* TEXTO PEQUEÑO OPCIONAL */
+.collab-hint {
+    font-size: 0.75rem;
+    color: #777;
+    margin-top: -0.4rem;
+    margin-bottom: .8rem;
+}
+
+/* ACCIONES */
+.collab-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: .8rem;
+}
+
+/* BOTÓN */
+.collab-btn {
+    background: #e8b394;
+    border: none;
+    padding: .6rem 1.3rem;
+    border-radius: 20px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: background .2s, transform .2s, box-shadow .2s;
+}
+
+.collab-btn:hover {
+    background: #d89c7b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(216, 156, 123, 0.4);
+}
+
+.collab-container img {
+    position: fixed;
+    bottom: 2rem;        
+    left: 3.5rem;       
+    width: 18rem;        
+    height: auto;
+    z-index: 9999;       /* encima de todo */
+    pointer-events: none;
+}
+
+.aboutme {
+    display: flex;
+    width: 100%;
+    min-height: 550px;
+}
+
+.infome {
+    flex: 1;
+    display: flex;
+}
+
+.fillme {
+    height: 100%;
+}
+
+.fillme img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Lado izquierdo */
+.left-info {
+    width: 50%;
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Contenedor de texto */
+.text-block {
+    width: 100%;
+    backdrop-filter: blur(2px);
+    padding: 1rem 2rem;
+}
+
+/* Títulos elegantes */
+.text-block h3 {
+    font-family: "Libre Baskerville", serif;
+    font-size: 1.8rem;
+    margin-top: 1rem;
+    margin-bottom: 0.8rem;
+    text-align: left;
+    color: #333;
+}
+
+/* Lista limpia, sin viñetas */
+.text-block ul {
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    list-style: none;
+}
+
+.text-block ul li {
+    font-size: 1.15rem;
+    margin: .4rem 0;
+    line-height: 1.4;
+    color: #444;
+}
+
 
 
