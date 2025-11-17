@@ -54,12 +54,45 @@
 
 
     <textarea name="motivo" placeholder="Motivo de consulta" class="form-control" style="margin-top:.5rem;"></textarea>
+    
+    <div style="margin-top: 1rem;display: flex;flex-direction: row;gap: .75rem;">
+      <label style=" font-weight:600 ;margin-bottom:.3rem;">Modalidad</label>
+
+      <label style="display: flex;align-items: center; gap: .6rem;font-size: 1rem;cursor: pointer;user-select: none;">
+        <input type="radio" name="modalidad" value="Presencial" required>
+        <span style="font-weight: 500;">Presencial</span>
+      </label>
+
+      <label style="display: flex;align-items: center; gap: .6rem;font-size: 1rem;cursor: pointer;user-select: none;">
+        <input type="radio" name="modalidad" value="Online">
+        <span style="font-weight: 500;">En línea</span>
+      </label>
+    </div>
+    
     <div style="margin-top:1rem; display:flex; gap:.5rem; justify-content:flex-end;">
-      <button type="button" id="cancelBtn" class="btn btn-secondary">Cancelar</button>
-      <button type="submit" class="btn btn-primary">Reservar</button>
+      <button type="button" id="cancelBtn" class="btn navlink">Cancelar</button>
+      <button type="submit" class="btn-contact">Reservar</button>
     </div>
   </form>
 </div>
+
+<div id="viewAppointmentModal" class="modal">
+  <div class="modal-content">
+    <h3>Tu cita</h3>
+
+    <input id="viewNombre" readonly class="form-control"/>
+    <input id="viewApellido" readonly class="form-control"/>
+    <input id="viewEmail" readonly class="form-control"/>
+    <input id="viewNumero" readonly class="form-control"/>
+    <textarea id="viewMotivo" readonly class="form-control"></textarea>
+    <input id="viewModalidad" readonly class="form-control"/>
+
+    <button onclick="document.getElementById('viewAppointmentModal').style.display='none'" class="btn btn-secondary">
+      Cerrar
+    </button>
+  </div>
+</div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -69,57 +102,90 @@ document.addEventListener('DOMContentLoaded', function () {
   const slotText = document.getElementById('slotText');
   const form = document.getElementById('bookForm');
 
+  const viewModal = document.getElementById("viewAppointmentModal");
+  const closeViewModal = document.getElementById("closeViewModal");
+
   let selStart = null, selEnd = null;
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'timeGridWeek',
     timeZone: tz,
     locale: 'es',
-    slotDuration: '01:00:00',// bloques de 1 hora
+    slotDuration: '01:00:00',
     slotLabelInterval: '01:00',
     slotLabelFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
-    slotMinTime: '07:00:00',     
-    slotMaxTime: '20:00:00',       
-    scrollTime: '07:00:00',      
+    slotMinTime: '07:00:00',
+    slotMaxTime: '20:00:00',
+    scrollTime: '07:00:00',
     snapDuration: '01:00:00',
     allDaySlot: false,
-    firstDay: 0, // desde domingo
+    firstDay: 0,
     expandRows: true,
     height: 'auto',
     selectable: true,
     selectMirror: true,
-    selectOverlap: false,             
+    selectOverlap: false,
     nowIndicator: true,
 
-    // Horario laboral
     businessHours: [
       { daysOfWeek: [1,2,3,4,5], startTime: '09:00', endTime: '18:00' },
       { daysOfWeek: [6],         startTime: '09:00', endTime: '13:00' }
     ],
 
-    // Citas ocupadas desde el backend
     events: {
       url: '@Url.Action("GetBusy", "Calendar")',
       method: 'GET',
       failure: () => alert('No se pudo cargar disponibilidad')
     },
 
-    // Restringe dias/horas pasadas
+    eventDidMount: function(info) {
+      // Hacer que todas las citas sean "clickeables"
+      info.el.style.cursor = "pointer";
+
+      if (info.event.extendedProps.isMine) {
+        // ⭐ Mis citas
+        info.el.style.color = "#000";                
+      } else {
+        // 🔵 Citas de otros usuarios
+        info.el.style.backgroundColor = "#A8C5FF";   
+        info.el.style.borderColor = "#7AA4F5";
+        info.el.style.color = "#000";             
+      }
+    },
+
+    // ⭐ PERMITIR QUE EL USUARIO SOLO ABRA SUS PROPIAS CITAS
+    eventClick: function(info) {
+
+      if (!info.event.extendedProps.isMine) return;
+
+      const id = info.event.id; // <-- Ya funcionará porque lo mandas desde C#
+
+      fetch(`/Calendar/GetAppointment/${id}`)
+        .then(res => res.json())
+        .then(data => {
+
+          document.getElementById("viewNombre").value = data.nombre;
+          document.getElementById("viewApellido").value = data.apellido;
+          document.getElementById("viewEmail").value = data.email;
+          document.getElementById("viewNumero").value = data.numero;
+          document.getElementById("viewMotivo").value = data.motivo;
+          document.getElementById("viewModalidad").value = data.modalidad;
+
+          document.getElementById("viewAppointmentModal").style.display = "flex";
+        });
+    },
+
     selectAllow: function(info) {
       return info.start >= new Date();
     },
 
     select: function(info) {
-      // forzamos 1h exacta por si el usuario arrastra mas
       const start = new Date(info.start);
-      const end = new Date(start.getTime() + 60*60*1000);
+      const end = new Date(start.getTime() + 60 * 60 * 1000);
 
       selStart = start.toISOString();
-      selEnd   = end.toISOString();
+      selEnd = end.toISOString();
 
-      const f = new Intl.DateTimeFormat('es-MX', {
-        dateStyle: 'full', timeStyle: 'short', timeZone: tz
-      });
       slotText.textContent = `${calendar.formatDate(start, { 
         weekday:'long', day:'2-digit', month:'long', year:'numeric', hour:'numeric', minute:'2-digit'
       })} – ${calendar.formatDate(end, { hour:'numeric', minute:'2-digit' })}`;
@@ -130,27 +196,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 
-  setTimeout(() => {
-    calendar.updateSize();
-  }, 150);
+  setTimeout(() => calendar.updateSize(), 150);
+  window.addEventListener('resize', () => calendar.updateSize());
 
-  window.addEventListener('resize', () => {
-    calendar.updateSize();
-  });
-  
+  // FORM SUBMIT (crear cita)
   form.onsubmit = async (e) => {
     e.preventDefault();
+
     const payload = {
       start: selStart,
       end: selEnd,
       nombre: form.nombre.value,
       apellido: form.apellido.value,
-      nombrePaciente: form.nombrePaciente.value,
+      nombrePaciente: form.nombrePaciente?.value,
       email: form.email.value,
       numero: form.numero.value,
-      
+      modalidad: form.modalidad?.value,
       motivo: form.motivo.value,
     };
+
     const res = await fetch('@Url.Action("Book", "Calendar")', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -163,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
       calendar.refetchEvents();
       alert('¡Cita reservada!');
     } else {
-      alert('`No se pudo` reservar: ' + await res.text());
+      alert("No se pudo reservar:\n" + await res.text());
     }
   };
 
@@ -171,8 +235,14 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.style.display = 'none';
     calendar.unselect();
   };
+
+  closeViewModal.onclick = () => {
+    viewModal.style.display = "none";
+  };
+
 });
 </script>
+
 
 <style>
 #calendar { background:#fff; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,.06); padding:1rem; }
@@ -181,4 +251,10 @@ document.addEventListener('DOMContentLoaded', function () {
 .btn { padding:.5rem 1rem; border-radius:20px; }
 .form-control { padding:.5rem; border:1px solid #ddd; border-radius:8px; }
 .fc .fc-timegrid-slot { height: 3rem; }
+.fc-timegrid-slot:hover,
+.fc-timegrid-axis:hover,
+.fc-timegrid-col:hover,
+.fc-daygrid-day:hover {
+  cursor: pointer !important;
+}
 </style>

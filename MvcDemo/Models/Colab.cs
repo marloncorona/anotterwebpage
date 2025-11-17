@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace MvcDemo.Models
@@ -13,7 +14,7 @@ namespace MvcDemo.Models
 
         public string Nombre { get; set; } = "";
         public string Apellido { get; set; } = "";
-        public string NombreOrg { get; set; } = "";
+        public string? NombreOrg { get; set; } = "";
         [EmailAddress]
         public string Email { get; set; } = "";
         public string Numero { get; set; } = "";

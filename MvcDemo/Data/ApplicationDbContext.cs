@@ -30,6 +30,7 @@ namespace MvcDemo.Data
                 entity.Property(a => a.Numero).IsRequired();
                 entity.Property(a => a.Motivo).IsRequired();
                 entity.Property(a => a.isReserved).HasDefaultValue(true);
+                entity.Property(a => a.UserId).IsRequired(false);
             });
 
             builder.Entity<Colab>(entity =>

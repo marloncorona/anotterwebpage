@@ -27,6 +27,8 @@
     </PackageReference>
     
     <PackageReference Include="MailKit" Version="4.14.1" />
+    
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
 <PackageReference Include="MimeKit" Version="4.14.0" />
 
   </ItemGroup>

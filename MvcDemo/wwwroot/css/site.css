@@ -47,9 +47,18 @@ body {
     align-items: center;
 }
 
+button {
+    border-radius: 20px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
 .navlink {
     color: #333;
     text-decoration: none;
+    border:none;
     font-weight: 600;
     letter-spacing: 0.5px;
     padding: 10px;
@@ -69,6 +78,7 @@ body {
 }
 
 .btn-contact {
+    border:none;
     background-color: #e3a16b;
     color: white !important;
     padding: 8px 18px;
@@ -358,14 +368,7 @@ h3 {
 
 /* IMAGEN DE FONDO */
 .login-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;  
-    z-index: -1;       
-    pointer-events: none; 
-    opacity: 0.25;
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; pointer-events: none; opacity: 0.25;
 }
 
 /* ===== TARJETA ===== */
@@ -378,7 +381,7 @@ h3 {
     width: 100%;
     text-align: center;
     backdrop-filter: blur(6px);
-    animation: fadeIn 0.6s ease;
+    animation: fadeIn .6s ease;
 }
 
 /* TITULO */
@@ -451,6 +454,7 @@ h3 {
     text-decoration: underline;
 }
 
+
 /* ANIMACIÓN */
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.97); }
@@ -490,7 +494,6 @@ h3 {
 /* INPUTS Y TEXTAREA */
 .collab-input,
 .collab-textarea {
-    width: 100%;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: .7rem;
@@ -567,11 +570,7 @@ h3 {
     display: flex;
 }
 
-.fillme {
-    height: 100%;
-}
-
-.fillme img {
+.right-info img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -587,6 +586,13 @@ h3 {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+.right-info {
+    width: 50%;
+    padding: 3rem 4rem;
+    display: flex;
+    align-items: center;
+
 }
 
 /* Contenedor de texto */
@@ -628,4 +634,29 @@ h3 {
     padding: 10px;
     margin:0px;
 }
+ 
+#viewAppointmentModal {
+     display: none;
+     position: fixed;
+     inset: 0;
+     background: rgba(0,0,0,.35);
+     justify-content: center;
+     align-items: center;
+     z-index: 2000;
+ }
 
+#viewAppointmentModal .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+#viewAppointmentModal .form-control {
+    padding: .5rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}

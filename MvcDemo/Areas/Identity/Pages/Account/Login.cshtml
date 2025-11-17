@@ -1,38 +1,41 @@
-@page
-@model MvcDemo.Areas.Identity.Pages.Account.LoginModel
-
+﻿@page
+@model LoginModel
 @{
-    ViewBag.Title = "Login";
+    ViewData["Title"] = "Iniciar sesión";
 }
 
 <div class="login-page">
-    <img class="login-bg" src="~/images/accountBg.png" alt="Fondo" />
+
+    <img src="~/images/meetConnieBg.png" class="login-bg" alt="Background" />
 
     <div class="login-card">
-        <h2 class="login-title">Iniciar sesión</h2>
-        <p class="login-subtitle">¡Bienvenido de nuevo!</p>
+
+        <h2 class="login-title">¡Bienvenida!</h2>
+        <p class="login-subtitle">Inicia sesión para continuar</p>
 
         <form method="post">
-            @Html.AntiForgeryToken()
 
-            <!-- EMAIL -->
-            <div class="input-group">
-                <input asp-for="Input.Email" class="form-control login-input" placeholder="Email" />
-            </div>
-            <span asp-validation-for="Input.Email" class="text-danger small"></span>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <!-- PASSWORD -->
             <div class="input-group">
-                <input asp-for="Input.Password" type="password" class="form-control login-input" placeholder="Contraseña" />
+                <input asp-for="Input.Email" class="login-input" placeholder="Email" autocomplete="username" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <span asp-validation-for="Input.Password" class="text-danger small"></span>
+
+            <div class="input-group">
+                <input asp-for="Input.Password" class="login-input" placeholder="Contraseña" type="password" autocomplete="current-password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
 
             <button type="submit" class="btn-login">Iniciar sesión</button>
 
-            <p class="login-footer">
-                ¿No tienes cuenta?
-                <a asp-area="Identity" asp-page="/Account/Register">Regístrate aquí</a>
-            </p>
+            <div class="login-footer">
+                <p>
+                    <a asp-page="./Register">Crear cuenta</a> ·
+                    <a asp-page="./ForgotPassword">¿Olvidaste tu contraseña?</a>
+                </p>
+            </div>
+
         </form>
     </div>
 

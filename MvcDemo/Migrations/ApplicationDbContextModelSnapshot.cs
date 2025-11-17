@@ -246,6 +246,10 @@ namespace MvcDemo.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Modalidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Motivo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -255,7 +259,6 @@ namespace MvcDemo.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombrePaciente")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Numero")
@@ -264,6 +267,9 @@ namespace MvcDemo.Migrations
 
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isReserved")
                         .ValueGeneratedOnAdd()
@@ -303,7 +309,6 @@ namespace MvcDemo.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombreOrg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Numero")

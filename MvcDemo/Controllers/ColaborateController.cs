@@ -25,7 +25,7 @@ public class ColaborateController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Colaborate(Colab req)
+    public async Task<IActionResult> Submit(Colab req)
     {
         try
         {
@@ -43,24 +43,24 @@ public class ColaborateController : Controller
             _context.Colabs.Add(a);
             await _context.SaveChangesAsync();
 
-            // // 2️⃣ Enviar correo al admin
-            // var adminEmail = "metzli.lopez@cetys.edu.mx";
-            //
-            // var bodyAdmin = $@"
-            //     <h2>Nueva solicitud de colaboración</h2>
-            //     <p><b>Nombre:</b> {a.Nombre} {a.Apellido}</p>
-            //     <p><b>Institución:</b> {a.NombreOrg}</p>
-            //     <p><b>Email:</b> {a.Email}</p>
-            //     <p><b>WhatsApp:</b> {a.Numero}</p>
-            //     <p><b>Motivo:</b> {a.Motivo}</p>
-            // ";
-            //
-            // await _email.SendEmailAsync(adminEmail, "Nueva colaboración", bodyAdmin);
-            //
-            // // 3️⃣ Enviar correo de confirmación al usuario
-            // await _email.SendEmailAsync(a.Email,
-            //     "Gracias por colaborar con nosotros",
-            //     "<h3>Gracias por tu mensaje, pronto nos pondremos en contacto contigo. 🧡</h3>");
+            // 2️⃣ Enviar correo al admin
+            var adminEmail = "metzli.lopez@cetys.edu.mx";
+            
+            var bodyAdmin = $@"
+                <h2>Nueva solicitud de colaboración</h2>
+                <p><b>Nombre:</b> {a.Nombre} {a.Apellido}</p>
+                <p><b>Institución:</b> {a.NombreOrg}</p>
+                <p><b>Email:</b> {a.Email}</p>
+                <p><b>WhatsApp:</b> {a.Numero}</p>
+                <p><b>Motivo:</b> {a.Motivo}</p>
+            ";
+            
+            await _email.SendEmailAsync(adminEmail, "Nueva colaboración", bodyAdmin);
+            
+            // 3️⃣ Enviar correo de confirmación al usuario
+            await _email.SendEmailAsync(a.Email,
+                "Gracias por colaborar con nosotros",
+                "<h3>Gracias por tu mensaje, pronto nos pondremos en contacto contigo. 🧡</h3>");
 
             // 4️⃣ TODO OK → Redirigir a vista de éxito
             return RedirectToAction("Success");
