@@ -143,22 +143,22 @@ document.addEventListener('DOMContentLoaded', function () {
       info.el.style.cursor = "pointer";
 
       if (info.event.extendedProps.isMine) {
-        // ⭐ Mis citas
+        // Mis citas
         info.el.style.color = "#000";                
       } else {
-        // 🔵 Citas de otros usuarios
+        // Citas de otros usuarios
         info.el.style.backgroundColor = "#A8C5FF";   
         info.el.style.borderColor = "#7AA4F5";
         info.el.style.color = "#000";             
       }
     },
 
-    // ⭐ PERMITIR QUE EL USUARIO SOLO ABRA SUS PROPIAS CITAS
+    // permitir que solo el usuario abra sus propias citas
     eventClick: function(info) {
 
       if (!info.event.extendedProps.isMine) return;
 
-      const id = info.event.id; // <-- Ya funcionará porque lo mandas desde C#
+      const id = info.event.id; 
 
       fetch(`/Calendar/GetAppointment/${id}`)
         .then(res => res.json())
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
   setTimeout(() => calendar.updateSize(), 150);
   window.addEventListener('resize', () => calendar.updateSize());
 
-  // FORM SUBMIT (crear cita)
+  // crear cita
   form.onsubmit = async (e) => {
     e.preventDefault();
 
